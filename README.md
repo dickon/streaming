@@ -65,6 +65,8 @@ The SetupRecording method adds a callback, and we use this in
 
 * [.Net Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md)
 
+Tested on Windows 10 Enterprise x86-64, but should work on MacOS and Linux as well.
+
 # TODO 
 
 1. Hook into the standard .Net tracing mechanism.
