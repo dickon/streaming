@@ -10,6 +10,8 @@ foreach (var continent in "Asia, Africa, North America, South America, Antarctic
     await Task.Delay(1000);
     await sl.StartSection($"Calling {continent}");
     await Task.Delay(1000);
+
+
     await sl.Announce($"Hello from {continent}");
     await sl.EndSection();
 }
@@ -20,6 +22,8 @@ await sl.EndSection();
 Of course this is more useful if you do some intensive or slow things 
 instead of calling Task.Delay :smiley:. Full example is in 
 [SampleWeb/Startup.cs](SampleWeb/Startup.cs).
+
+This was inspired by a [question I found at stackoverflow](https://stackoverflow.com/questions/42722936/asp-net-core-1-1-chunked-responses).
 
 # Details
 
