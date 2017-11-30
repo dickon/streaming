@@ -1,3 +1,27 @@
+# Short version
+
+Write code like this, which can run on a web server or in the browser:
+
+```csharp
+    await StartSection("Section");
+    await Announce("Hello world");
+    foreach (var continent in "Asia, Africa, North America, South America, Antarctica, Europe, Australia".Split(", ")) {
+        await Task.Delay(1000);
+        await StartSection($"Talking to {continent}");
+        await Task.Delay(1000);
+        await Announce($"Hello {continent}");
+        await EndSection();
+    }
+    await EndSection();
+});
+```
+
+Of course this is more useful if you do some expensive or slow things instead of calling Task.Delay :). 
+Full example is in [SampleWeb/Startup.cs](SampleWeb/Startup.cs).
+
+
+# Long version
+
 Web application page load times matter. No one wants to stare at a 
 "Loading..." spinner for very long. If your application needs data 
 from other services and those services are slow to respond, you can:
@@ -20,22 +44,28 @@ just as happily in a web server or as a standalone tool.
 
 In this repository there's 2 key classes, both of which are really simple:
 
+## The StreamedAction class
+
+[StreamedAction](Lib/StreamedAction.cs) is a static class which generarates
+a stream of writes that together form a simple HTML document. It registers
+itself as a callback to [StructuredLogger](Lib/StructuredLogger.cs). 
+It then invokes its callback which is expected to end up calling StructuredLogger 
+static methods.
+
 ## The StructuredLogger class
 
-[StructureLogger](Lib/StructuredLogger.cs) is a static class which provides
+[StructuredLogger](Lib/StructuredLogger.cs) is a static class which provides
 an Announce method for producing a line of output, and a StartSection/EndSection
 pair to mark when you are doing something so that you can get structured logging.
 This can be used in a console program and will work fine, printing output to the 
 console with indentation if you use StartSection/EndSection. 
 
-The SetupRecording method adds a callback, and we use this in StreamedAction.
+The SetupRecording method adds a callback, and we use this in
+[StreamedAction](Lib/StreamedAction.cs).
 
-## The StreamedAction class
+# Dependencies
 
-[StreamedAction](Lib/StreamedAction.cs) is a static class which generarates
-a stream of writes that together form a simple HTML document. It registers
-itself as a callback to StructuredLogger. It then invokes its callback which
-is expected to end up calling StructuredLogger static methods.
+* [.Net Core 2.0](https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md)
 
 # TODO 
 
