@@ -15,6 +15,8 @@ namespace SampleWeb
     {
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+
             app.Run(async (context) =>
             {
                 await StreamedAction.Go(context, async () => {

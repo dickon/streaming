@@ -13,13 +13,15 @@ namespace Lib {
             var response = context.Response;
             response.StatusCode = 200;
             response.ContentType = "text/html";
-            await response.WriteAsync($"<html><head><link rel=\"stylesheet\" href=\"https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css\" /> </head> <body>");
+            await response.WriteAsync($"<html><head><link rel=\"stylesheet\" href=\"https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css\" />  <link rel=\"stylesheet\" href=\"/css/site.css\" /></head> <body>");
             // Edge, Firefox and IE will all wait 10+ seconds before showing anything if you send them a small amount of chunked HTML including a piece that will display. Chrome displays it immediately. If you send 1000 spaces in the first chunk they all do what I wanted. Ugh.
             await response.WriteAsync(string.Concat(Enumerable.Repeat(" ", 1000)));
             try {
                 SetupRecording(async x=> {
-                    if (throwExceptionOnDisconnect && context.RequestAborted.IsCancellationRequested)
+                    if (throwExceptionOnDisconnect && context.RequestAborted.IsCancellationRequested) {
+                        Console.WriteLine("!!!!Client disconnected");
                         throw new Exception("client disconnected"); // TODO: throw a better exception
+                    }
                     await response.WriteAsync(x);
                 });
                 await invoke.Invoke();
