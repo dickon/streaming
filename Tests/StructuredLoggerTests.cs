@@ -13,7 +13,10 @@ namespace Tests
         [Fact]
         public async Task TestLogger() {
             var seq = new List<string>();
-            SetupRecording(async x=>seq.Add(x));
+            SetupRecording(x=> {
+                seq.Add(x);
+                return Task.FromResult<object>(null);
+            });
             await StartSection("alpha");
             await Announce("hello");
             await EndSection();
