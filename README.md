@@ -76,7 +76,7 @@ static methods.
 
 ## The StructuredLogger class
 
-[StructuredLogger](Lib/StructuredLogger.cs) is a static class which provides
+[StructuredLogger](Lib/StructuredLogger.cs) is a class which provides
 an Announce method for producing a line of output, and a StartSection/EndSection
 pair to mark when you are doing something so that you can get structured logging.
 This can be used in a console program and will work fine, printing output to the 
