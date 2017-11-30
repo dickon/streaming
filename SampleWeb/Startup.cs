@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Lib;
-using static Lib.StructuredLogger;
 
 namespace SampleWeb
 {
@@ -16,7 +15,6 @@ namespace SampleWeb
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
-
             app.Run(async (context) =>
             {
                 if (context.Request.Path == "/") {
