@@ -17,9 +17,9 @@ await sl.EndSection();
 ```
 
 
-Of course this is more useful if you do some expensive or slow things instead of calling Task.Delay :). 
-Full example is in [SampleWeb/Startup.cs](SampleWeb/Startup.cs).
-
+Of course this is more useful if you do some intensive or slow things 
+instead of calling Task.Delay :smiley:. Full example is in 
+[SampleWeb/Startup.cs](SampleWeb/Startup.cs).
 
 # Details
 
@@ -38,12 +38,29 @@ examples of doing this. That's why I wrote this.**
 Web browsers are quite capable of displaying a partial web page and updating it 
 as more HTML content appears. How you go about doing this is going to vary 
 between web frameworks. It's pretty simple to do in ASP.Net Core using
-asynchronous C#.
+[asynchronous C#](https://docs.microsoft.com/en-us/dotnet/csharp/async).
 
 What this means is that you can write code which can run away for minutes 
-just as happily in a web server or as a standalone tool.
+just as happily in a web server or as a standalone tool. Your code will pass
+around an instance of [StructuredLogger](Lib/StructuredLogger.cs) and will call
+the Announce message to both log to the console and to a web browser if
+running in a web server.
 
-In this repository there's 2 key classes, both of which are really simple:
+In this repository there's 2 key classes, both of which are very short, and
+make use of [Asynchrnous C#](https://docs.microsoft.com/en-us/dotnet/csharp/async)
+
+Fundamentally, HTTP is simply a TCP connection, and what we're doing here
+is keeping the TCP connection for a while. We send down enough HTML to get
+the browser started, and then lumps of HTML as we create content, followed by
+finishing up the HTML and closing the connection. On the other hand if the
+TCP connection goes away then we've lost contact with the client, and the OS
+and .Net will detect this and the code here will throw an exception the next
+time you call Announce. This stops your code continuing with expensive computation
+where the results will no longer be seen; it's a bit like pressing Control-C in a
+console.
+
+We found this useful for long running operations which can be run on demand by
+users as well as run regularly from a TeamCity server. 
 
 ## The StreamedAction class
 
@@ -72,5 +89,4 @@ Tested on Windows 10 Enterprise x86-64, but should work on MacOS and Linux as we
 
 # TODO 
 
-1. Hook into the standard .Net tracing mechanism.
-2. Add test cases that exercise StreamedAction.
+1. Add test cases that exercise StreamedAction.
