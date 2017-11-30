@@ -1,6 +1,5 @@
-# Short version
-
-Write code like this, which can run on a web server or in the browser:
+A couple of tiny classes which let you write code like this, 
+which can run on a web server or in the browser:
 
 ```csharp
 await StartSection("Example");
@@ -19,7 +18,7 @@ Of course this is more useful if you do some expensive or slow things instead of
 Full example is in [SampleWeb/Startup.cs](SampleWeb/Startup.cs).
 
 
-# Long version
+# Details
 
 Web application page load times matter. No one wants to stare at a 
 "Loading..." spinner for very long. If your application needs data 
