@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using static Lib.StructuredLogger;
+using Lib;
 
 namespace Tests
 {
@@ -13,13 +13,13 @@ namespace Tests
         [Fact]
         public async Task TestLogger() {
             var seq = new List<string>();
-            SetupRecording(x=> {
+            var sl = new StructuredLogger(x=> {
                 seq.Add(x);
                 return Task.FromResult<object>(null);
             });
-            await StartSection("alpha");
-            await Announce("hello");
-            await EndSection();
+            await sl.StartSection("alpha");
+            await sl.Announce("hello");
+            await sl.EndSection();
             var text = string.Concat(seq);
             Assert.Equal("<div class=\"section\">\n <div class=\"heading\">alpha</div>\n    <div class=\"log\">hello</div>\n</div>\n", text);
         }

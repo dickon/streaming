@@ -20,17 +20,17 @@ namespace SampleWeb
             app.Run(async (context) =>
             {
                 if (context.Request.Path == "/") {
-                    await StreamedAction.Go(context, async () => {
-                        await StartSection("Example");
-                        await Announce("Hello world");
+                    await StreamedAction.Go(context, async (sl) => {
+                        await sl.StartSection("Example");
+                        await sl.Announce("Hello world");
                         foreach (var continent in "Asia, Africa, North America, South America, Antarctica, Europe, Australia".Split(", ")) {
                             await Task.Delay(1000);
-                            await StartSection($"Talking to {continent}");
+                            await sl.StartSection($"Calling {continent}");
                             await Task.Delay(1000);
-                            await Announce($"Hello {continent}");
-                            await EndSection();
+                            await sl.Announce($"Hello from {continent}");
+                            await sl.EndSection();
                         }
-                        await EndSection();
+                        await sl.EndSection();
                     });             
                 }
             });
