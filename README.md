@@ -1,3 +1,5 @@
+[![Demo of the Streaming code in action](https://i.imgur.com/HwCWR6p.png)](https://youtu.be/5oReOatUnks)
+
 A couple of tiny classes which let you write code like this, 
 which can run on a web server or in the browser:
 
@@ -14,7 +16,6 @@ foreach (var continent in "Asia, Africa, North America, South America, Antarctic
 await sl.EndSection();
 ```
 
-[![Demo of the Streaming code in action](https://i.imgur.com/OEyvh7N.png)](http://www.youtube.com/watch?v=PTyvRMzfI_8)
 
 Of course this is more useful if you do some expensive or slow things instead of calling Task.Delay :). 
 Full example is in [SampleWeb/Startup.cs](SampleWeb/Startup.cs).
