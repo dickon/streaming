@@ -17,7 +17,7 @@ namespace SampleWeb
         {
             app.Run(async (context) =>
             {
-                await StreamedAction.Go(context.Response, async () => {
+                await StreamedAction.Go(context, async () => {
                     await StartSection("Section");
                     await Announce("Hello world");
                     foreach (var continent in "Asia, Africa, North America, South America, Antarctica, Europe, Australia".Split(", ")) {
