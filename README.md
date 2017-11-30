@@ -14,6 +14,9 @@ foreach (var continent in "Asia, Africa, North America, South America, Antarctic
 await EndSection();
 ```
 
+[![Demo of the Streaming](https://share.gifyoutube.com/PTyvRMzfI_8.gif)](https://www.youtube.com/watch?v=PTyvRMzfI_8)
+
+
 Of course this is more useful if you do some expensive or slow things instead of calling Task.Delay :). 
 Full example is in [SampleWeb/Startup.cs](SampleWeb/Startup.cs).
 
