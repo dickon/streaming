@@ -3,17 +3,16 @@
 Write code like this, which can run on a web server or in the browser:
 
 ```csharp
-    await StartSection("Section");
-    await Announce("Hello world");
-    foreach (var continent in "Asia, Africa, North America, South America, Antarctica, Europe, Australia".Split(", ")) {
-        await Task.Delay(1000);
-        await StartSection($"Talking to {continent}");
-        await Task.Delay(1000);
-        await Announce($"Hello {continent}");
-        await EndSection();
-    }
+await StartSection("Section");
+await Announce("Hello world");
+foreach (var continent in "Asia, Africa, North America, South America, Antarctica, Europe, Australia".Split(", ")) {
+    await Task.Delay(1000);
+    await StartSection($"Talking to {continent}");
+    await Task.Delay(1000);
+    await Announce($"Hello {continent}");
     await EndSection();
-});
+}
+await EndSection();
 ```
 
 Of course this is more useful if you do some expensive or slow things instead of calling Task.Delay :). 
