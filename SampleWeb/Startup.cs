@@ -23,10 +23,10 @@ namespace SampleWeb
                         await sl.Announce("Hello world");
                         foreach (var continent in "Asia, Africa, North America, South America, Antarctica, Europe, Australia".Split(", ")) {
                             await Task.Delay(1000);
-                            await sl.StartSection($"Calling {continent}");
-                            await Task.Delay(1000);
-                            await sl.Announce($"Hello from {continent}");
-                            await sl.EndSection();
+                            await sl.Section($"Calling {continent}", async () => {
+                                await Task.Delay(1000);
+                                await sl.Announce($"Hello from {continent}");
+                            });
                         }
                         await sl.EndSection();
                     });             

@@ -39,5 +39,14 @@ namespace Lib {
                 }
             }
         }
+
+        public async Task Section(string message, Func<Task> operation, string kind="section") {
+            try {
+                await StartSection(message, kind);
+                await operation.Invoke();
+            } finally {
+                await EndSection();
+            }
+        }
     }
 }

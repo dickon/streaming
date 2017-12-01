@@ -17,9 +17,7 @@ namespace Tests
                 seq.Add(x);
                 return Task.FromResult<object>(null);
             });
-            await sl.StartSection("alpha");
-            await sl.Announce("hello");
-            await sl.EndSection();
+            await sl.Section("alpha", async () => await sl.Announce("hello"));
             var text = string.Concat(seq);
             Assert.Equal("<div class=\"section\">\n <div class=\"heading\">alpha</div>\n    <div class=\"log\">hello</div>\n</div>\n", text);
         }
